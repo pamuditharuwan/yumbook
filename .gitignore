@@ -1,0 +1,20 @@
+# Operating System Files
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# IDE and Editor Configurations
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Temporary & Log Files
+*.log
+npm-debug.log*
+__pycache__/
+
+# Documentation & Archives
+docs/
+*.zip
+*.tar.gz
