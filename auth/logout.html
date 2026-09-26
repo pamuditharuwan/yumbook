@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Logout - YumBook</title>
+</head>
+<body>
+    <script>
+        localStorage.removeItem('yumbook_user');
+        localStorage.removeItem('yumbook_registered_users');
+        window.location.href = '../index.html';
+    </script>
+    <p>Logging out... <a href="../index.html">Return to Home</a></p>
+</body>
+</html>

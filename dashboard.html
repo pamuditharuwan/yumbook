@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Dashboard - YumBook</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- Main Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center py-1" href="index.html">
+                <img src="assets/images/logo-clean.png" alt="YumBook Logo" class="navbar-brand-logo">
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recipes.html">
+                            <i class="bi bi-search me-1"></i> Browse Recipes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">
+                            <i class="bi bi-envelope me-1"></i> Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-4">
+        <div class="container py-3">
+            <!-- User Profile Header Banner -->
+            <div class="card border-0 shadow-sm rounded-4 bg-primary text-white mb-4 overflow-hidden">
+                <div class="card-body p-4 p-md-5 position-relative">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <div class="d-flex align-items-center gap-3 mb-2">
+                                <div id="userAvatar" class="rounded-circle bg-white text-primary d-flex align-items-center justify-content-center shadow" style="width: 64px; height: 64px; font-size: 1.8rem; font-weight: 700;">
+                                    U
+                                </div>
+                                <div>
+                                    <h1 class="h2 fw-bold mb-0 text-white" id="profileName">User Name</h1>
+                                    <div class="opacity-75 small">
+                                        <span class="badge bg-white text-primary me-2" id="profileUsername">@username</span>
+                                        <span><i class="bi bi-envelope me-1"></i><span id="profileEmail">user@example.com</span></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="mb-0 mt-3 text-white-50">
+                                Welcome to your creator dashboard. Here you can submit authentic homemade recipes, monitor feedback, and manage your culinary creations.
+                            </p>
+                        </div>
+                        <div class="col-md-4 mt-3 mt-md-0 text-md-end">
+                            <a href="#newRecipeCard" class="btn btn-light btn-lg rounded-pill fw-semibold shadow-sm text-primary">
+                                <i class="bi bi-plus-circle me-1"></i> Add New Recipe
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats Cards -->
+            <div class="row g-3 mb-4">
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body d-flex align-items-center p-3">
+                            <div class="rounded-circle bg-primary-subtle text-primary p-3 me-3">
+                                <i class="bi bi-journal-bookmark-fill fs-3"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">My Recipes</div>
+                                <div class="fs-4 fw-bold" id="myRecipesCount">0</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body d-flex align-items-center p-3">
+                            <div class="rounded-circle bg-success-subtle text-success p-3 me-3">
+                                <i class="bi bi-star-fill fs-3"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Account Status</div>
+                                <div class="fs-5 fw-bold text-success">Verified Cook</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body d-flex align-items-center p-3">
+                            <div class="rounded-circle bg-warning-subtle text-warning p-3 me-3">
+                                <i class="bi bi-calendar-check fs-3"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Member Since</div>
+                                <div class="fs-6 fw-bold" id="profileMemberSince">Jan 2026</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-lg-3">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-body d-flex align-items-center p-3">
+                            <div class="rounded-circle bg-info-subtle text-info p-3 me-3">
+                                <i class="bi bi-globe-americas fs-3"></i>
+                            </div>
+                            <div>
+                                <div class="text-muted small">Community Recipes</div>
+                                <div class="fs-4 fw-bold">100+</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="recipeSuccessAlert" class="alert alert-success alert-dismissible fade show rounded-3 shadow-sm mb-4" style="display: none;" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i>
+                <span id="recipeSuccessAlertText">Recipe published successfully!</span>
+                <button type="button" class="btn-close" onclick="this.parentElement.style.display='none'"></button>
+            </div>
+
+            <div class="row g-4">
+                <!-- Add New Recipe Form -->
+                <div class="col-lg-6" id="newRecipeCard">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-header bg-white border-bottom p-4">
+                            <div class="d-flex align-items-center gap-2">
+                                <i class="bi bi-pencil-square text-primary fs-4"></i>
+                                <h2 class="h5 fw-bold mb-0">Share a New Recipe</h2>
+                            </div>
+                            <p class="text-muted small mb-0 mt-1">Submit your dish to the YumBook recipe collection.</p>
+                        </div>
+                        <div class="card-body p-4">
+                            <form id="addRecipeForm" novalidate>
+                                <div class="mb-3">
+                                    <label for="recipeTitle" class="form-label fw-semibold small">Recipe Title <span class="text-danger">*</span></label>
+                                    <input type="text" class="form-control" id="recipeTitle" placeholder="e.g. Traditional Sri Lankan Kothu Roti" required minlength="3">
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label for="recipeCategory" class="form-label fw-semibold small">Category <span class="text-danger">*</span></label>
+                                        <select class="form-select" id="recipeCategory" required>
+                                            <option value="" selected disabled>Select category...</option>
+                                            <option value="Breakfast">Breakfast</option>
+                                            <option value="Lunch">Lunch</option>
+                                            <option value="Dinner">Dinner</option>
+                                            <option value="Dessert">Dessert</option>
+                                            <option value="Vegan">Vegan</option>
+                                            <option value="Beverages">Beverages</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="recipeTime" class="form-label fw-semibold small">Cooking Time (minutes) <span class="text-danger">*</span></label>
+                                        <input type="number" class="form-control" id="recipeTime" placeholder="e.g. 35" min="1" max="1440" required>
+                                    </div>
+                                </div>
+
+                                <div class="row g-3 mb-3">
+                                    <div class="col-md-6">
+                                        <label for="recipeOrigin" class="form-label fw-semibold small">Country / Origin</label>
+                                        <input type="text" class="form-control" id="recipeOrigin" placeholder="e.g. Sri Lanka, Italy, Mexico">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="recipeImageUrl" class="form-label fw-semibold small">Image URL (Optional)</label>
+                                        <input type="url" class="form-control" id="recipeImageUrl" placeholder="https://example.com/photo.jpg">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="recipeIngredients" class="form-label fw-semibold small">Ingredients <span class="text-danger">*</span></label>
+                                    <textarea class="form-control font-monospace small" id="recipeIngredients" rows="5" placeholder="Enter each ingredient on a new line:&#10;2 cups basmati rice&#10;1 tsp turmeric powder&#10;400ml coconut milk" required></textarea>
+                                    <div class="form-text small">Enter each ingredient on its own separate line.</div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="recipeSteps" class="form-label fw-semibold small">Preparation Steps / Instructions <span class="text-danger">*</span></label>
+                                    <textarea class="form-control small" id="recipeSteps" rows="6" placeholder="Step 1: Wash and rinse rice until water runs clear...&#10;Step 2: Heat ghee in a deep clay pot over medium flame...&#10;Step 3: Simmer gently for 20 minutes until fluffy." required></textarea>
+                                    <div class="form-text small">Explain each step clearly with tips and timing cues.</div>
+                                </div>
+
+                                <div class="d-grid">
+                                    <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-semibold shadow-sm">
+                                        <i class="bi bi-cloud-arrow-up me-2"></i> Publish Recipe
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- My Recipes List -->
+                <div class="col-lg-6">
+                    <div class="card border-0 shadow-sm rounded-4 h-100">
+                        <div class="card-header bg-white border-bottom p-4 d-flex align-items-center justify-content-between">
+                            <div>
+                                <h2 class="h5 fw-bold mb-0">My Submitted Recipes</h2>
+                                <p class="text-muted small mb-0 mt-1">Dishes published under your account.</p>
+                            </div>
+                            <span class="badge bg-primary rounded-pill px-3 py-2" id="myRecipesBadge">0 Published</span>
+                        </div>
+                        <div class="card-body p-4" id="myRecipesContainer">
+                            <!-- Populated dynamically via JS -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Enhanced Modern Footer -->
+    <footer class="site-footer border-top">
+        <div class="container">
+            <div class="row g-4 justify-content-between">
+                <div class="col-lg-5 col-md-6 text-center text-md-start">
+                    <a href="index.html" class="d-inline-block mb-3 text-decoration-none">
+                        <img src="assets/images/logo-clean.png" alt="YumBook Logo" class="footer-brand-logo">
+                    </a>
+                    <p class="footer-brand-desc mb-0">
+                        Your trusted culinary companion for discovering, cooking, and sharing authentic global recipes. Explore delicious step-by-step dishes crafted for food lovers and home cooks everywhere.
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-4 text-center text-md-start ms-md-auto">
+                    <h6 class="footer-section-title">Quick Links</h6>
+                    <ul class="footer-nav-links list-unstyled mb-0">
+                        <li><a href="index.html" class="footer-link"><i class="bi bi-chevron-right small me-1"></i>Home</a></li>
+                        <li><a href="recipes.html" class="footer-link"><i class="bi bi-chevron-right small me-1"></i>Browse Recipes</a></li>
+                        <li><a href="contact.html" class="footer-link"><i class="bi bi-chevron-right small me-1"></i>Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p class="text-muted small mb-0">&copy; 2026 <strong>YumBook</strong>. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/recipes-data.js?v=18.0"></script>
+    <script src="assets/js/app-store.js?v=15.0"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = window.getCurrentUser();
+            if (!user) {
+                window.location.href = 'login.html';
+                return;
+            }
+
+            // Populate user profile info
+            document.getElementById('profileName').textContent = user.name || 'YumBook Chef';
+            document.getElementById('profileUsername').textContent = '@' + (user.username || 'chef');
+            document.getElementById('profileEmail').textContent = user.email || 'chef@yumbook.lk';
+            document.getElementById('userAvatar').textContent = (user.name || 'U').charAt(0).toUpperCase();
+
+            function loadMyRecipes() {
+                const allRecipes = getAllRecipes();
+                const myRecipes = allRecipes.filter(r => (r.author_name === user.name) || (r.user_id === user.id));
+
+                document.getElementById('myRecipesCount').textContent = myRecipes.length;
+                document.getElementById('myRecipesBadge').textContent = myRecipes.length + ' Published';
+
+                const container = document.getElementById('myRecipesContainer');
+                if (myRecipes.length === 0) {
+                    container.innerHTML = `
+                        <div class="text-center py-5">
+                            <div class="bg-light rounded-circle d-inline-flex align-items-center justify-content-center mb-3" style="width: 72px; height: 72px;">
+                                <i class="bi bi-egg-fried text-muted fs-2"></i>
+                            </div>
+                            <h3 class="h6 fw-bold">No Recipes Published Yet</h3>
+                            <p class="text-muted small mx-auto" style="max-width: 320px;">
+                                You haven't added any recipes yet. Use the form on the left to submit your first delicious recipe!
+                            </p>
+                        </div>
+                    `;
+                } else {
+                    container.innerHTML = `
+                        <div class="list-group list-group-flush gap-3">
+                            ${myRecipes.map(recipe => `
+                                <div class="list-group-item p-3 border rounded-3 d-flex gap-3 align-items-center">
+                                    <img src="${recipe.image_url || 'assets/images/recipes/recipe-placeholder.jpg'}" 
+                                         alt="${recipe.title}" 
+                                         class="rounded-3 object-fit-cover shadow-sm flex-shrink-0" 
+                                         style="width: 80px; height: 80px;"
+                                         onerror="this.onerror=null;this.src='assets/images/recipes/recipe-placeholder.jpg';">
+                                    <div class="flex-grow-1 min-w-0">
+                                        <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                                            <span class="badge bg-primary rounded-pill small">${recipe.category}</span>
+                                            <span class="text-muted small"><i class="bi bi-clock me-1"></i>${recipe.cooking_time} mins</span>
+                                            <span class="text-muted small"><i class="bi bi-geo-alt me-1"></i>${recipe.origin || 'Global'}</span>
+                                        </div>
+                                        <h4 class="h6 fw-bold text-truncate mb-1">${recipe.title}</h4>
+                                        <div class="small text-warning">
+                                            <i class="bi bi-star-fill"></i> ${(recipe.avg_rating || 5.0).toFixed(1)} 
+                                            <span class="text-muted small">(${recipe.rating_count || 1})</span>
+                                        </div>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <a href="recipe-detail.html?id=${recipe.id}" class="btn btn-outline-primary btn-sm rounded-pill" title="View recipe">
+                                            <i class="bi bi-eye"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            `).join('')}
+                        </div>
+                    `;
+                }
+            }
+
+            loadMyRecipes();
+
+            // Recipe Submission Form
+            const form = document.getElementById('addRecipeForm');
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const title = document.getElementById('recipeTitle').value.trim();
+                const category = document.getElementById('recipeCategory').value;
+                const cooking_time = parseInt(document.getElementById('recipeTime').value);
+                const origin = document.getElementById('recipeOrigin').value.trim() || 'Global';
+                const image_url = document.getElementById('recipeImageUrl').value.trim() || 'assets/images/recipes/recipe-placeholder.jpg';
+                const ingredients = document.getElementById('recipeIngredients').value.trim();
+                const steps = document.getElementById('recipeSteps').value.trim();
+
+                if (!title || !category || isNaN(cooking_time) || !ingredients || !steps) {
+                    alert('Please complete all required fields.');
+                    return;
+                }
+
+                const newRecipe = {
+                    id: Date.now(),
+                    user_id: user.id,
+                    author_name: user.name || user.username,
+                    title: title,
+                    category: category,
+                    origin: origin,
+                    cooking_time: cooking_time,
+                    image_url: image_url,
+                    ingredients: ingredients,
+                    steps: steps,
+                    instructions: steps,
+                    avg_rating: 5.0,
+                    rating_count: 1
+                };
+
+                // Save to app store in localStorage
+                const allRecipes = getAllRecipes();
+                allRecipes.unshift(newRecipe);
+                localStorage.setItem(STORAGE_KEYS.RECIPES, JSON.stringify(allRecipes));
+
+                form.reset();
+                const alertEl = document.getElementById('recipeSuccessAlert');
+                document.getElementById('recipeSuccessAlertText').innerHTML = `Recipe <strong>${title}</strong> was successfully published and added to the catalog!`;
+                alertEl.style.display = 'block';
+                alertEl.scrollIntoView({ behavior: 'smooth' });
+
+                loadMyRecipes();
+            });
+        });
+    </script>
+</body>
+</html>

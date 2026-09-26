@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse &amp; Search Recipes - YumBook</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css?v=15.0">
+</head>
+<body>
+
+    <!-- Main Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center py-1" href="index.html">
+                <img src="assets/images/logo-clean.png" alt="YumBook Logo" class="navbar-brand-logo">
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold" href="recipes.html">
+                            <i class="bi bi-search me-1"></i> Browse Recipes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">
+                            <i class="bi bi-envelope me-1"></i> Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-4">
+        <div class="container">
+            <!-- Page Header & Title (Matches Wireframe 7.2) -->
+            <div class="d-md-flex justify-content-between align-items-center mb-4">
+                <div>
+                    <h1 class="h2 fw-bold text-dark mb-1">Browse Recipes</h1>
+                    <p class="text-muted mb-0" id="recipeCountSubtitle">Showing delicious recipes</p>
+                </div>
+            </div>
+
+            <!-- Search & Sort Top Toolbar -->
+            <div class="card p-3 border-0 shadow-sm rounded-3 mb-4">
+                <div class="row g-2 align-items-center">
+                    <div class="col-md-7">
+                        <form id="searchToolbarForm" onsubmit="event.preventDefault(); triggerSearch();">
+                            <div class="input-group">
+                                <span class="input-group-text bg-white text-muted border-end-0">
+                                    <i class="bi bi-search"></i>
+                                </span>
+                                <input type="text" 
+                                       id="searchInput" 
+                                       class="form-control border-start-0" 
+                                       placeholder="Search by recipe name, ingredient, or category..."
+                                       autocomplete="off">
+                                <button class="btn btn-primary px-4 fw-semibold" type="submit" id="searchBtn">
+                                    <i class="bi bi-search me-1"></i> Search
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                    <div class="col-md-5">
+                        <div class="d-flex align-items-center gap-2 justify-content-md-end">
+                            <label for="sortSelect" class="form-label mb-0 small text-nowrap fw-semibold">Sort by:</label>
+                            <select id="sortSelect" class="form-select form-select-sm" style="max-width: 200px;">
+                                <option value="newest">Newest</option>
+                                <option value="highest_rated">Highest Rated</option>
+                                <option value="time_asc">Cooking Time: Fast first</option>
+                                <option value="time_desc">Cooking Time: Slow first</option>
+                                <option value="title_asc">Alphabetical (A-Z)</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-2">
+                <!-- Sidebar Filter Column (Matches Wireframe 7.2) -->
+                <div class="col-lg-3">
+                    <div class="card filter-card p-3 mb-4 shadow-sm">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h5 class="fw-bold mb-0">Filters</h5>
+                            <button class="btn btn-link text-danger text-decoration-none p-0 small" id="resetFiltersBtn">Reset All</button>
+                        </div>
+
+                        <!-- Category Filters -->
+                        <div class="mb-4">
+                            <h6 class="fw-semibold text-secondary mb-2">Category</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="categoryFilter" id="cat_all" value="" checked>
+                                <label class="form-check-label d-flex justify-content-between" for="cat_all">
+                                    <span>All Categories</span>
+                                    <span class="badge bg-light text-muted rounded-pill" id="badge_cat_all">100</span>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="categoryFilter" id="cat_Breakfast" value="Breakfast">
+                                <label class="form-check-label d-flex justify-content-between" for="cat_Breakfast">
+                                    <span>Breakfast</span>
+                                    <span class="badge bg-light text-muted rounded-pill" id="badge_cat_Breakfast">17</span>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="categoryFilter" id="cat_Lunch" value="Lunch">
+                                <label class="form-check-label d-flex justify-content-between" for="cat_Lunch">
+                                    <span>Lunch</span>
+                                    <span class="badge bg-light text-muted rounded-pill" id="badge_cat_Lunch">17</span>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="categoryFilter" id="cat_Dinner" value="Dinner">
+                                <label class="form-check-label d-flex justify-content-between" for="cat_Dinner">
+                                    <span>Dinner</span>
+                                    <span class="badge bg-light text-muted rounded-pill" id="badge_cat_Dinner">17</span>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="categoryFilter" id="cat_Dessert" value="Dessert">
+                                <label class="form-check-label d-flex justify-content-between" for="cat_Dessert">
+                                    <span>Dessert</span>
+                                    <span class="badge bg-light text-muted rounded-pill" id="badge_cat_Dessert">17</span>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="categoryFilter" id="cat_Vegan" value="Vegan">
+                                <label class="form-check-label d-flex justify-content-between" for="cat_Vegan">
+                                    <span>Vegan</span>
+                                    <span class="badge bg-light text-muted rounded-pill" id="badge_cat_Vegan">16</span>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="categoryFilter" id="cat_Beverages" value="Beverages">
+                                <label class="form-check-label d-flex justify-content-between" for="cat_Beverages">
+                                    <span>Beverages</span>
+                                    <span class="badge bg-light text-muted rounded-pill" id="badge_cat_Beverages">16</span>
+                                </label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="categoryFilter" id="cat_SriLankan" value="Sri Lankan">
+                                <label class="form-check-label d-flex justify-content-between" for="cat_SriLankan">
+                                    <span>Sri Lankan</span>
+                                    <span class="badge bg-danger text-white rounded-pill" id="badge_cat_SriLankan">10</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Cooking Time Filters -->
+                        <div class="mb-4">
+                            <h6 class="fw-semibold text-secondary mb-2">Cooking Time</h6>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="timeFilter" id="time_all" value="" checked>
+                                <label class="form-check-label" for="time_all">Any Time</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="timeFilter" id="time_under30" value="under30">
+                                <label class="form-check-label" for="time_under30">Under 30 mins</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="timeFilter" id="time_30to60" value="30to60">
+                                <label class="form-check-label" for="time_30to60">30 - 60 mins</label>
+                            </div>
+                            <div class="form-check mb-2">
+                                <input class="form-check-input" type="radio" name="timeFilter" id="time_over60" value="over60">
+                                <label class="form-check-label" for="time_over60">Over 60 mins</label>
+                            </div>
+                        </div>
+
+                        <button type="button" class="btn btn-primary w-100" id="applyFiltersBtn">
+                            <i class="bi bi-funnel me-1"></i> Apply Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Recipe Grid Column (Matches Wireframe 7.2) -->
+                <div class="col-lg-9">
+                    <div class="row g-4" id="recipesGrid">
+                        <!-- Populated dynamically -->
+                    </div>
+
+                    <!-- Pagination -->
+                    <nav aria-label="Recipe pagination" class="mt-5" id="paginationNav" style="display: none;">
+                        <ul class="pagination justify-content-center" id="paginationList">
+                            <!-- Populated dynamically -->
+                        </ul>
+                    </nav>
+
+                    <!-- No Results Placeholder -->
+                    <div class="card p-5 text-center border-0 shadow-sm rounded-4" id="noResultsCard" style="display: none;">
+                        <div class="mb-3 text-muted">
+                            <i class="bi bi-emoji-neutral fs-1"></i>
+                        </div>
+                        <h4 class="fw-bold">No Recipes Found</h4>
+                        <p class="text-muted">No recipes matched your search criteria. Try different keywords or reset your filters.</p>
+                        <div>
+                            <button class="btn btn-outline-primary" onclick="resetAllFilters()">
+                                <i class="bi bi-arrow-counterclockwise me-1"></i> Reset All Filters
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Enhanced Modern Footer -->
+    <footer class="site-footer border-top">
+        <div class="container">
+            <div class="row g-4 justify-content-between">
+                <!-- Brand & Description -->
+                <div class="col-lg-5 col-md-6 text-center text-md-start">
+                    <a href="index.html" class="d-inline-block mb-3 text-decoration-none">
+                        <img src="assets/images/logo-clean.png" alt="YumBook Logo" class="footer-brand-logo">
+                    </a>
+                    <p class="footer-brand-desc mb-0">
+                        Your trusted culinary companion for discovering, cooking, and sharing authentic global recipes. Explore delicious step-by-step dishes crafted for food lovers and home cooks everywhere.
+                    </p>
+                </div>
+
+                <!-- Navigation Links: Quick Links -->
+                <div class="col-lg-3 col-md-4 text-center text-md-start ms-md-auto">
+                    <h6 class="footer-section-title">Quick Links</h6>
+                    <ul class="footer-nav-links list-unstyled mb-0">
+                        <li>
+                            <a href="index.html" class="footer-link">
+                                <i class="bi bi-chevron-right small me-1"></i>Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="recipes.html" class="footer-link">
+                                <i class="bi bi-chevron-right small me-1"></i>Browse Recipes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="contact.html" class="footer-link">
+                                <i class="bi bi-chevron-right small me-1"></i>Contact Us
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright Section -->
+            <div class="footer-bottom text-center">
+                <p class="text-muted small mb-0">
+                    &copy; 2026 <strong>YumBook</strong>. All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Scroll-to-Top Button -->
+    <button type="button" id="floatingBackToTop" class="floating-back-to-top" aria-label="Scroll to top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="assets/js/recipes-data.js?v=18.0"></script>
+    <script src="assets/js/app-store.js?v=15.0"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        let currentPage = 1;
+        const perPage = 12;
+
+        function getQueryParams() {
+            const params = new URLSearchParams(window.location.search);
+            return {
+                q: params.get('q') || '',
+                category: params.get('category') || '',
+                time: params.get('time') || '',
+                sort: params.get('sort') || 'newest',
+                page: parseInt(params.get('page')) || 1
+            };
+        }
+
+        function updateCategoryCounts() {
+            const all = getAllRecipes();
+            document.getElementById('badge_cat_all').textContent = all.length;
+            ['Breakfast', 'Lunch', 'Dinner', 'Dessert', 'Vegan', 'Beverages', 'Sri Lankan'].forEach(cat => {
+                const count = all.filter(r => (r.category || '').toLowerCase() === cat.toLowerCase()).length;
+                const badgeId = `badge_cat_${cat.replace(/\s+/g, '')}`;
+                const el = document.getElementById(badgeId);
+                if (el) el.textContent = count;
+            });
+        }
+
+        function syncUrlParams(q, category, time, sort, page) {
+            try {
+                const url = new URL(window.location);
+                if (q) url.searchParams.set('q', q); else url.searchParams.delete('q');
+                if (category) url.searchParams.set('category', category); else url.searchParams.delete('category');
+                if (time) url.searchParams.set('time', time); else url.searchParams.delete('time');
+                if (sort && sort !== 'newest') url.searchParams.set('sort', sort); else url.searchParams.delete('sort');
+                if (page && page > 1) url.searchParams.set('page', page); else url.searchParams.delete('page');
+                window.history.replaceState({}, '', url);
+            } catch (e) {
+                // Ignore for file:// origins if history API restricted
+            }
+        }
+
+        function triggerSearch() {
+            currentPage = 1;
+            renderRecipeList();
+        }
+
+        function renderRecipeList() {
+            const allRecipes = getAllRecipes();
+            const searchInput = document.getElementById('searchInput');
+            const sortSelect = document.getElementById('sortSelect');
+            
+            const rawQuery = searchInput.value.trim();
+            const q = rawQuery.toLowerCase();
+            const queryTerms = q.split(/\s+/).filter(t => t.length > 0);
+            
+            const selectedCat = (document.querySelector('input[name="categoryFilter"]:checked') || {}).value || '';
+            const selectedTime = (document.querySelector('input[name="timeFilter"]:checked') || {}).value || '';
+            const sortVal = sortSelect.value;
+
+            // Sync URL parameters
+            syncUrlParams(rawQuery, selectedCat, selectedTime, sortVal, currentPage);
+
+            // Filter
+            let filtered = allRecipes.filter(recipe => {
+                const title = (recipe.title || '').toLowerCase();
+                const ingredients = (recipe.ingredients || '').toLowerCase();
+                const category = (recipe.category || '').toLowerCase();
+                const origin = (recipe.origin || '').toLowerCase();
+                const author = (recipe.author_name || '').toLowerCase();
+
+                const matchQuery = queryTerms.length === 0 || queryTerms.every(term => 
+                    title.includes(term) || 
+                    ingredients.includes(term) || 
+                    category.includes(term) || 
+                    origin.includes(term) || 
+                    author.includes(term)
+                );
+                
+                const matchCategory = !selectedCat || (category === selectedCat.toLowerCase());
+                
+                let matchTime = true;
+                const time = parseInt(recipe.cooking_time) || 0;
+                if (selectedTime === 'under30') matchTime = time < 30;
+                else if (selectedTime === '30to60') matchTime = time >= 30 && time <= 60;
+                else if (selectedTime === 'over60') matchTime = time > 60;
+
+                return matchQuery && matchCategory && matchTime;
+            });
+
+            // Sort
+            if (sortVal === 'highest_rated') {
+                filtered.sort((a, b) => (b.avg_rating || 0) - (a.avg_rating || 0));
+            } else if (sortVal === 'time_asc') {
+                filtered.sort((a, b) => (a.cooking_time || 0) - (b.cooking_time || 0));
+            } else if (sortVal === 'time_desc') {
+                filtered.sort((a, b) => (b.cooking_time || 0) - (a.cooking_time || 0));
+            } else if (sortVal === 'title_asc') {
+                filtered.sort((a, b) => a.title.localeCompare(b.title));
+            } else {
+                filtered.sort((a, b) => b.id - a.id);
+            }
+
+            document.getElementById('recipeCountSubtitle').textContent = `Showing ${filtered.length} delicious recipes`;
+
+            const totalPages = Math.ceil(filtered.length / perPage);
+            if (currentPage > totalPages) currentPage = Math.max(1, totalPages);
+
+            const start = (currentPage - 1) * perPage;
+            const paginated = filtered.slice(start, start + perPage);
+
+            const grid = document.getElementById('recipesGrid');
+            const noResults = document.getElementById('noResultsCard');
+            const paginationNav = document.getElementById('paginationNav');
+
+            if (paginated.length === 0) {
+                grid.innerHTML = '';
+                noResults.style.display = 'block';
+                paginationNav.style.display = 'none';
+                return;
+            }
+
+            noResults.style.display = 'none';
+            grid.innerHTML = paginated.map(recipe => `
+                <div class="col-md-6 col-xl-4">
+                    <div class="card h-100 recipe-card" data-category="${escapeHTML(recipe.category)}">
+                        <div class="recipe-card-img-wrapper">
+                            <img src="${escapeHTML(recipe.image_url)}" class="recipe-card-img" alt="${escapeHTML(recipe.title)}" loading="lazy" onerror="this.onerror=null;this.src='assets/images/recipes/recipe-placeholder.jpg';">
+                            <span class="badge badge-cat ${getCategoryBadgeClass(recipe.category)}">
+                                <i class="bi ${getCategoryIcon(recipe.category)} me-1"></i>
+                                ${escapeHTML(recipe.category)}
+                            </span>
+                            <span class="badge-time">
+                                <i class="bi bi-clock me-1"></i>${recipe.cooking_time} mins
+                            </span>
+                        </div>
+                        
+                        <div class="card-body d-flex flex-column">
+                            <div class="d-flex align-items-center gap-1 mb-1 text-primary small fw-semibold">
+                                <i class="bi bi-geo-alt-fill text-danger"></i>
+                                <span>${escapeHTML(recipe.origin || 'Authentic Regional')}</span>
+                            </div>
+
+                            <h5 class="card-title fw-bold mb-2">
+                                <a href="recipe-detail.html?id=${recipe.id}" class="text-decoration-none text-dark">
+                                    ${escapeHTML(recipe.title)}
+                                </a>
+                            </h5>
+                            
+                            <div class="mb-2">
+                                ${renderStars(recipe.avg_rating, recipe.rating_count)}
+                            </div>
+                            
+                            <p class="card-text text-muted small flex-grow-1">
+                                ${escapeHTML((recipe.ingredients || '').split('\n').slice(0, 3).join(', '))}...
+                            </p>
+                            
+                            <div class="mt-auto pt-2 border-top d-flex align-items-center justify-content-between">
+                                <button type="button" 
+                                        class="btn btn-sm btn-outline-secondary rounded-pill px-2 d-inline-flex align-items-center gap-1"
+                                        data-bs-toggle="modal" 
+                                        data-bs-target="#quickViewModal"
+                                        data-title="${escapeHTML(recipe.title)}"
+                                        data-category="${escapeHTML(recipe.category)}"
+                                        data-origin="${escapeHTML(recipe.origin || 'Global')}"
+                                        data-time="${recipe.cooking_time || 30}"
+                                        data-image="${escapeHTML(recipe.image_url || '')}"
+                                        data-ingredients="${escapeHTML(recipe.ingredients || '')}"
+                                        data-url="recipe-detail.html?id=${recipe.id}">
+                                    <i class="bi bi-eye"></i> Quick View
+                                </button>
+                                <a href="recipe-detail.html?id=${recipe.id}" class="btn btn-primary btn-sm px-3 rounded-pill">
+                                    View Recipe
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // Pagination
+            if (totalPages > 1) {
+                paginationNav.style.display = 'block';
+                const paginationList = document.getElementById('paginationList');
+                let pagesHtml = `
+                    <li class="page-item ${currentPage === 1 ? 'disabled' : ''}">
+                        <a class="page-link" href="javascript:void(0)" onclick="goToPage(${currentPage - 1})">&laquo; Prev</a>
+                    </li>
+                `;
+                for (let p = 1; p <= totalPages; p++) {
+                    pagesHtml += `
+                        <li class="page-item ${currentPage === p ? 'active' : ''}">
+                            <a class="page-link" href="javascript:void(0)" onclick="goToPage(${p})">${p}</a>
+                        </li>
+                    `;
+                }
+                pagesHtml += `
+                    <li class="page-item ${currentPage === totalPages ? 'disabled' : ''}">
+                        <a class="page-link" href="javascript:void(0)" onclick="goToPage(${currentPage + 1})">Next &raquo;</a>
+                    </li>
+                `;
+                paginationList.innerHTML = pagesHtml;
+            } else {
+                paginationNav.style.display = 'none';
+            }
+        }
+
+        function goToPage(p) {
+            currentPage = p;
+            renderRecipeList();
+            window.scrollTo({ top: 100, behavior: 'smooth' });
+        }
+
+        function resetAllFilters() {
+            document.getElementById('searchInput').value = '';
+            document.getElementById('cat_all').checked = true;
+            document.getElementById('time_all').checked = true;
+            document.getElementById('sortSelect').value = 'newest';
+            currentPage = 1;
+            try {
+                const url = new URL(window.location.pathname, window.location.origin);
+                window.history.replaceState({}, '', url);
+            } catch (e) {}
+            renderRecipeList();
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            updateCategoryCounts();
+            const queryParams = getQueryParams();
+
+            if (queryParams.q) {
+                document.getElementById('searchInput').value = queryParams.q;
+            }
+            if (queryParams.category) {
+                const catRadios = document.querySelectorAll('input[name="categoryFilter"]');
+                catRadios.forEach(radio => {
+                    if (radio.value.toLowerCase() === queryParams.category.toLowerCase()) {
+                        radio.checked = true;
+                    }
+                });
+            }
+            if (queryParams.time) {
+                const timeRadio = document.getElementById(`time_${queryParams.time}`);
+                if (timeRadio) timeRadio.checked = true;
+            }
+            if (queryParams.sort) {
+                document.getElementById('sortSelect').value = queryParams.sort;
+            }
+            currentPage = queryParams.page;
+
+            renderRecipeList();
+
+            document.getElementById('searchBtn').addEventListener('click', triggerSearch);
+            document.getElementById('searchInput').addEventListener('keyup', (e) => { 
+                if (e.key === 'Enter') { 
+                    e.preventDefault(); 
+                    triggerSearch(); 
+                } 
+            });
+            document.getElementById('sortSelect').addEventListener('change', () => { currentPage = 1; renderRecipeList(); });
+            document.getElementById('applyFiltersBtn').addEventListener('click', () => { currentPage = 1; renderRecipeList(); });
+            document.getElementById('resetFiltersBtn').addEventListener('click', resetAllFilters);
+            
+            document.querySelectorAll('input[name="categoryFilter"], input[name="timeFilter"]').forEach(radio => {
+                radio.addEventListener('change', () => { currentPage = 1; renderRecipeList(); });
+            });
+        });
+    </script>
+
+    <!-- Recipe Quick View Modal (Bootstrap 5 Component) -->
+    <div class="modal fade" id="quickViewModal" tabindex="-1" aria-labelledby="quickViewModalTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content rounded-4 border-0 shadow">
+                <div class="modal-header border-0 pb-0">
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body p-4 pt-0">
+                    <div class="row g-4 align-items-center">
+                        <div class="col-md-5">
+                            <img id="quickViewModalImage" src="" alt="Recipe Image" class="img-fluid rounded-4 object-fit-cover shadow-sm w-100" style="height: 260px;">
+                        </div>
+                        <div class="col-md-7">
+                            <div class="d-flex align-items-center gap-2 mb-2 flex-wrap">
+                                <span id="quickViewModalCategory" class="badge bg-primary rounded-pill"></span>
+                                <span class="text-muted small"><i class="bi bi-clock me-1"></i><span id="quickViewModalTime"></span> mins</span>
+                                <span class="text-muted small"><i class="bi bi-geo-alt me-1"></i><span id="quickViewModalOrigin"></span></span>
+                            </div>
+                            <h3 id="quickViewModalTitle" class="h4 fw-bold mb-3"></h3>
+                            <h6 class="fw-semibold text-muted small text-uppercase mb-2">Ingredients Preview:</h6>
+                            <div id="quickViewModalIngredients" class="small text-muted mb-4" style="max-height: 100px; overflow-y: auto;"></div>
+                            <div class="d-flex gap-2">
+                                <a id="quickViewModalLink" href="#" class="btn btn-primary rounded-pill px-4 fw-semibold shadow-sm">
+                                    <i class="bi bi-book-half me-1"></i> View Full Recipe
+                                </a>
+                                <button type="button" class="btn btn-outline-secondary rounded-pill px-3" data-bs-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

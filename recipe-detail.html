@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recipe Details - YumBook</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css?v=15.0">
+</head>
+<body>
+
+    <!-- Main Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center py-1" href="index.html">
+                <img src="assets/images/logo-clean.png" alt="YumBook Logo" class="navbar-brand-logo">
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active fw-bold" href="recipes.html">
+                            <i class="bi bi-search me-1"></i> Browse Recipes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">
+                            <i class="bi bi-envelope me-1"></i> Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-4">
+        <div class="container" id="recipeDetailContainer">
+            <!-- Breadcrumbs -->
+            <nav aria-label="breadcrumb" class="mb-4">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="index.html" class="text-decoration-none">Home</a></li>
+                    <li class="breadcrumb-item"><a href="recipes.html" class="text-decoration-none">Recipes</a></li>
+                    <li class="breadcrumb-item"><a href="#" id="breadCategory" class="text-decoration-none">Category</a></li>
+                    <li class="breadcrumb-item active" id="breadTitle" aria-current="page">Recipe Title</li>
+                </ol>
+            </nav>
+
+            <!-- Success Alert for Rating -->
+            <div id="ratingSuccessAlert" class="alert alert-success alert-dismissible fade show shadow-sm mb-4" style="display: none;" role="alert">
+                <i class="bi bi-check-circle-fill me-2"></i> <span id="ratingSuccessText"></span>
+                <button type="button" class="btn-close" onclick="this.parentElement.style.display='none'"></button>
+            </div>
+
+            <!-- Recipe Header Card -->
+            <div class="card border-0 shadow-sm rounded-4 overflow-hidden mb-4">
+                <div class="row g-0">
+                    <div class="col-lg-6">
+                        <img src="" id="recipeImg" alt="Recipe Image" class="img-fluid h-100 w-100" style="min-height: 340px; max-height: 420px; object-fit: cover;" onerror="this.onerror=null;this.src='assets/images/recipes/recipe-placeholder.jpg';">
+                    </div>
+                    <div class="col-lg-6 p-4 p-md-5 d-flex flex-column justify-content-center">
+                        <div class="d-flex flex-wrap gap-2 mb-3">
+                            <span class="badge fs-6 px-3 py-2 rounded-pill" id="recipeCatBadge">
+                                <i class="bi me-1" id="recipeCatIcon"></i>
+                                <span id="recipeCatName">Category</span>
+                            </span>
+                            <span class="badge bg-primary text-white fs-6 px-3 py-2 rounded-pill" id="recipeOriginBadge" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%) !important;">
+                                <i class="bi bi-geo-alt-fill me-1"></i> <span id="recipeOrigin">Origin</span>
+                            </span>
+                            <span class="badge bg-dark text-white fs-6 px-3 py-2 rounded-pill">
+                                <i class="bi bi-clock me-1"></i> <span id="recipeCookingTime">30</span> minutes
+                            </span>
+                        </div>
+
+                        <h1 class="h2 fw-bold text-dark mb-3" id="recipeTitle">Recipe Title</h1>
+
+                        <div class="mb-3 d-flex align-items-center gap-2" id="recipeRatingArea">
+                            <!-- Star Rating Area -->
+                        </div>
+
+                        <div class="text-muted small border-top pt-3 mt-2">
+                            <div class="row g-2">
+                                <div class="col-sm-6">
+                                    <i class="bi bi-person-fill text-primary me-1"></i> Master Chef: 
+                                    <strong id="recipeAuthor" class="text-dark">Community Chef</strong>
+                                </div>
+                                <div class="col-sm-6">
+                                    <i class="bi bi-globe-americas text-primary me-1"></i> Culinary Origin: 
+                                    <strong id="recipeOriginText" class="text-dark">Authentic Regional</strong>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                <!-- Ingredients Column -->
+                <div class="col-lg-5">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 mb-4 sticky-top" style="top: 80px; z-index: 10;">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <h3 class="h4 fw-bold mb-0">
+                                <i class="bi bi-basket-fill text-warning me-2"></i>Ingredients
+                            </h3>
+                            <span class="badge bg-light text-muted border" id="ingredientCount">0 items</span>
+                        </div>
+                        <p class="text-muted small mb-3">Check off ingredients as you prepare them:</p>
+
+                        <ul class="list-unstyled ingredient-list mb-0" id="ingredientListContainer">
+                            <!-- Dynamic checklist -->
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Preparation Steps Column -->
+                <div class="col-lg-7">
+                    <div class="card border-0 shadow-sm rounded-4 p-4 p-md-5 mb-4">
+                        <h3 class="h4 fw-bold mb-4">
+                            <i class="bi bi-list-ol text-primary me-2"></i>Preparation Steps
+                        </h3>
+
+                        <div class="d-flex flex-column gap-4" id="stepsContainer">
+                            <!-- Dynamic step cards -->
+                        </div>
+                    </div>
+
+                    <!-- Interactive Star Rating Submission Widget -->
+                    <div class="card border-0 shadow-sm rounded-4 p-4 mb-4" id="ratingCard">
+                        <h4 class="fw-bold mb-2">
+                            <i class="bi bi-star-half text-warning me-2"></i>Rate this Recipe
+                        </h4>
+                        <p class="text-muted small mb-3">
+                            Tried this dish? Give it a score from 1 to 5 stars to help other students!
+                        </p>
+
+                        <div class="rating-widget mb-3 d-flex align-items-center gap-2" id="detailRatingWidget">
+                            <i class="bi bi-star star-btn fs-2 cursor-pointer" data-val="1" title="1 Star"></i>
+                            <i class="bi bi-star star-btn fs-2 cursor-pointer" data-val="2" title="2 Stars"></i>
+                            <i class="bi bi-star star-btn fs-2 cursor-pointer" data-val="3" title="3 Stars"></i>
+                            <i class="bi bi-star star-btn fs-2 cursor-pointer" data-val="4" title="4 Stars"></i>
+                            <i class="bi bi-star-fill text-warning star-btn fs-2 cursor-pointer" data-val="5" title="5 Stars"></i>
+                        </div>
+                        
+                        <div id="ratingDescription" class="small text-muted fw-semibold mb-3">
+                            5 - Excellent &amp; Delicious!
+                        </div>
+
+                        <button type="button" class="btn btn-primary btn-sm px-4" id="submitRatingBtn">
+                            <i class="bi bi-check2-circle me-1"></i> Submit Rating
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Related Recipes Section -->
+            <div class="mt-5" id="relatedRecipesSection">
+                <h3 class="h4 fw-bold mb-4">More <span id="relatedCatName">Category</span> Recipes</h3>
+                <div class="row g-4" id="relatedRecipesGrid">
+                    <!-- Related cards -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Enhanced Modern Footer -->
+    <footer class="site-footer border-top">
+        <div class="container">
+            <div class="row g-4 justify-content-between">
+                <!-- Brand & Description -->
+                <div class="col-lg-5 col-md-6 text-center text-md-start">
+                    <a href="index.html" class="d-inline-block mb-3 text-decoration-none">
+                        <img src="assets/images/logo-clean.png" alt="YumBook Logo" class="footer-brand-logo">
+                    </a>
+                    <p class="footer-brand-desc mb-0">
+                        Your trusted culinary companion for discovering, cooking, and sharing authentic global recipes. Explore delicious step-by-step dishes crafted for food lovers and home cooks everywhere.
+                    </p>
+                </div>
+
+                <!-- Navigation Links: Quick Links -->
+                <div class="col-lg-3 col-md-4 text-center text-md-start ms-md-auto">
+                    <h6 class="footer-section-title">Quick Links</h6>
+                    <ul class="footer-nav-links list-unstyled mb-0">
+                        <li>
+                            <a href="index.html" class="footer-link">
+                                <i class="bi bi-chevron-right small me-1"></i>Home
+                            </a>
+                        </li>
+                        <li>
+                            <a href="recipes.html" class="footer-link">
+                                <i class="bi bi-chevron-right small me-1"></i>Browse Recipes
+                            </a>
+                        </li>
+                        <li>
+                            <a href="contact.html" class="footer-link">
+                                <i class="bi bi-chevron-right small me-1"></i>Contact Us
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Copyright Section -->
+            <div class="footer-bottom text-center">
+                <p class="text-muted small mb-0">
+                    &copy; 2026 <strong>YumBook</strong>. All Rights Reserved.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Scroll-to-Top Button -->
+    <button type="button" id="floatingBackToTop" class="floating-back-to-top" aria-label="Scroll to top">
+        <i class="bi bi-arrow-up"></i>
+    </button>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Application Scripts -->
+    <script src="assets/js/recipes-data.js?v=18.0"></script>
+    <script src="assets/js/app-store.js?v=15.0"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        let currentRecipe = null;
+        let selectedUserRating = 5;
+
+        const ratingLabels = {
+            1: '1 - Poor',
+            2: '2 - Fair',
+            3: '3 - Good',
+            4: '4 - Very Good',
+            5: '5 - Excellent & Delicious!'
+        };
+
+        function setupRatingWidget() {
+            const stars = document.querySelectorAll('#detailRatingWidget .star-btn');
+            const desc = document.getElementById('ratingDescription');
+
+            function highlight(val) {
+                stars.forEach(s => {
+                    const v = parseInt(s.getAttribute('data-val'));
+                    if (v <= val) {
+                        s.className = 'bi bi-star-fill text-warning star-btn fs-2 cursor-pointer';
+                    } else {
+                        s.className = 'bi bi-star text-muted star-btn fs-2 cursor-pointer';
+                    }
+                });
+            }
+
+            stars.forEach(s => {
+                s.addEventListener('mouseenter', () => {
+                    const val = parseInt(s.getAttribute('data-val'));
+                    highlight(val);
+                    desc.textContent = ratingLabels[val] || '';
+                });
+
+                s.addEventListener('click', () => {
+                    selectedUserRating = parseInt(s.getAttribute('data-val'));
+                    highlight(selectedUserRating);
+                    desc.textContent = ratingLabels[selectedUserRating] || '';
+                });
+            });
+
+            document.getElementById('detailRatingWidget').addEventListener('mouseleave', () => {
+                highlight(selectedUserRating);
+                desc.textContent = ratingLabels[selectedUserRating];
+            });
+
+            document.getElementById('submitRatingBtn').addEventListener('click', () => {
+                if (!currentRecipe) return;
+                const updated = rateRecipe(currentRecipe.id, selectedUserRating);
+                if (updated) {
+                    currentRecipe = updated;
+                    document.getElementById('recipeRatingArea').innerHTML = renderStars(updated.avg_rating, updated.rating_count);
+                    const alertEl = document.getElementById('ratingSuccessAlert');
+                    document.getElementById('ratingSuccessText').textContent = `Thank you! You rated this recipe ${selectedUserRating} stars.`;
+                    alertEl.style.display = 'block';
+                    alertEl.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const recipeId = params.get('id') || 1;
+            currentRecipe = getRecipeById(recipeId);
+
+            if (!currentRecipe) {
+                document.getElementById('recipeDetailContainer').innerHTML = `
+                    <div class="card p-5 text-center border-0 shadow-sm rounded-4">
+                        <div class="mb-3 text-danger"><i class="bi bi-exclamation-triangle fs-1"></i></div>
+                        <h3>Recipe Not Found</h3>
+                        <p class="text-muted">The recipe you requested does not exist or has been removed.</p>
+                        <div><a href="recipes.html" class="btn btn-primary">Browse All Recipes</a></div>
+                    </div>
+                `;
+                return;
+            }
+
+            document.title = `${currentRecipe.title} - YumBook`;
+
+            document.getElementById('breadTitle').textContent = currentRecipe.title;
+            const breadCat = document.getElementById('breadCategory');
+            breadCat.textContent = currentRecipe.category;
+            breadCat.href = `recipes.html?category=${encodeURIComponent(currentRecipe.category)}`;
+
+            document.getElementById('recipeTitle').textContent = currentRecipe.title;
+            document.getElementById('recipeImg').src = currentRecipe.image_url;
+            document.getElementById('recipeImg').alt = currentRecipe.title;
+            document.getElementById('recipeImg').onerror = function() {
+                this.onerror = null;
+                this.src = 'assets/images/recipes/recipe-placeholder.jpg';
+            };
+            document.getElementById('recipeCookingTime').textContent = currentRecipe.cooking_time;
+            document.getElementById('recipeAuthor').textContent = currentRecipe.author_name || 'Community Chef';
+            document.getElementById('recipeOrigin').textContent = currentRecipe.origin || 'Authentic Regional';
+            document.getElementById('recipeOriginText').textContent = currentRecipe.origin || 'Authentic Regional';
+            document.getElementById('recipeRatingArea').innerHTML = renderStars(currentRecipe.avg_rating, currentRecipe.rating_count);
+
+            const badge = document.getElementById('recipeCatBadge');
+            badge.className = `badge fs-6 px-3 py-2 rounded-pill ${getCategoryBadgeClass(currentRecipe.category)}`;
+            document.getElementById('recipeCatIcon').className = `bi ${getCategoryIcon(currentRecipe.category)} me-1`;
+            document.getElementById('recipeCatName').textContent = currentRecipe.category;
+
+            const ingList = (currentRecipe.ingredients || '').split('\n').map(i => i.trim()).filter(Boolean);
+            document.getElementById('ingredientCount').textContent = `${ingList.length} items`;
+            document.getElementById('ingredientListContainer').innerHTML = ingList.map((ing, idx) => `
+                <li class="ingredient-checkbox-item d-flex align-items-start gap-2 py-2 border-bottom">
+                    <input class="form-check-input mt-1 flex-shrink-0" type="checkbox" id="ing_${idx}" onchange="this.parentElement.classList.toggle('text-decoration-line-through', this.checked); this.parentElement.classList.toggle('text-muted', this.checked)">
+                    <label class="form-check-label flex-grow-1 cursor-pointer" for="ing_${idx}">
+                        ${escapeHTML(ing.replace(/^[-*•]\s*/, ''))}
+                    </label>
+                </li>
+            `).join('');
+
+            const stepsList = (currentRecipe.steps || '').split('\n').map(s => s.trim()).filter(Boolean);
+            document.getElementById('stepsContainer').innerHTML = stepsList.map((step, idx) => {
+                const clean = step.replace(/^(step\s*\d+[:.]?|\d+[\.)])\s*/i, '');
+                const dashIdx = clean.indexOf(' - ');
+                let stepBody = '';
+                if (dashIdx > 0 && dashIdx < 65) {
+                    const phaseTitle = clean.substring(0, dashIdx).trim();
+                    const phaseDesc = clean.substring(dashIdx + 3).trim();
+                    stepBody = `
+                        <h6 class="fw-bold text-dark mb-1 fs-6">${escapeHTML(phaseTitle)}</h6>
+                        <p class="mb-0 text-secondary" style="line-height: 1.65;">${escapeHTML(phaseDesc)}</p>
+                    `;
+                } else {
+                    stepBody = `<p class="mb-0 text-secondary" style="line-height: 1.65;">${escapeHTML(clean)}</p>`;
+                }
+                return `
+                    <div class="p-3 step-card shadow-sm">
+                        <div class="d-flex align-items-start gap-3">
+                            <span class="step-number flex-shrink-0">${idx + 1}</span>
+                            <div class="step-text pt-1 flex-grow-1">
+                                ${stepBody}
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            setupRatingWidget();
+
+            const all = getAllRecipes();
+            const related = all.filter(r => r.category.toLowerCase() === currentRecipe.category.toLowerCase() && String(r.id) !== String(currentRecipe.id)).slice(0, 3);
+            
+            document.getElementById('relatedCatName').textContent = currentRecipe.category;
+            const relatedGrid = document.getElementById('relatedRecipesGrid');
+            if (related.length > 0) {
+                relatedGrid.innerHTML = related.map(rel => `
+                    <div class="col-md-4">
+                        <div class="card h-100 recipe-card" data-category="${escapeHTML(rel.category)}">
+                            <div class="recipe-card-img-wrapper">
+                                <img src="${escapeHTML(rel.image_url)}" class="recipe-card-img" alt="${escapeHTML(rel.title)}" loading="lazy" onerror="this.onerror=null;this.src='assets/images/recipes/recipe-placeholder.jpg';">
+                                <span class="badge badge-cat ${getCategoryBadgeClass(rel.category)}">
+                                    ${escapeHTML(rel.category)}
+                                </span>
+                                <span class="badge-time">
+                                    <i class="bi bi-clock me-1"></i>${rel.cooking_time} mins
+                                </span>
+                            </div>
+                            <div class="card-body d-flex flex-column">
+                                <h6 class="card-title fw-bold mb-2">
+                                    <a href="recipe-detail.html?id=${rel.id}" class="text-decoration-none text-dark">
+                                        ${escapeHTML(rel.title)}
+                                    </a>
+                                </h6>
+                                <div class="mb-3">
+                                    ${renderStars(rel.avg_rating, rel.rating_count)}
+                                </div>
+                                <div class="mt-auto">
+                                    <a href="recipe-detail.html?id=${rel.id}" class="btn btn-outline-primary btn-sm w-100">
+                                        View Recipe
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            } else {
+                document.getElementById('relatedRecipesSection').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

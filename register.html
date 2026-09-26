@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - YumBook</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+    <!-- Main Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom shadow-sm sticky-top">
+        <div class="container">
+            <a class="navbar-brand d-flex align-items-center py-1" href="index.html">
+                <img src="assets/images/logo-clean.png" alt="YumBook Logo" class="navbar-brand-logo">
+            </a>
+            
+            <button class="navbar-toggler border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain" aria-controls="navbarMain" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarMain">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-lg-center gap-lg-3">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">
+                            <i class="bi bi-house-door me-1"></i> Home
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="recipes.html">
+                            <i class="bi bi-search me-1"></i> Browse Recipes
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">
+                            <i class="bi bi-envelope me-1"></i> Contact
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <main class="py-5">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-7 col-lg-5">
+                    <div class="card shadow-sm border-0 rounded-4">
+                        <div class="card-body p-4 p-md-5">
+                            <div class="text-center mb-4">
+                                <div class="d-inline-flex align-items-center justify-content-center bg-primary-subtle text-primary rounded-circle mb-3" style="width: 56px; height: 56px;">
+                                    <i class="bi bi-person-plus fs-3"></i>
+                                </div>
+                                <h1 class="h3 fw-bold mb-1">Create an Account</h1>
+                                <p class="text-muted small">Join YumBook to share your favorite recipes and join our culinary community.</p>
+                            </div>
+
+                            <div id="registerAlert" class="alert alert-danger alert-dismissible fade show" style="display: none;" role="alert">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                <span id="registerAlertText"></span>
+                                <button type="button" class="btn-close" onclick="this.parentElement.style.display='none'"></button>
+                            </div>
+
+                            <form id="registerForm" novalidate>
+                                <div class="mb-3">
+                                    <label for="username" class="form-label fw-semibold small">Username <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light text-muted"><i class="bi bi-at"></i></span>
+                                        <input type="text" class="form-control" id="username" placeholder="e.g. foodlover22" required pattern="^[a-zA-Z0-9_]{3,30}$">
+                                    </div>
+                                    <div class="form-text small">3-30 characters, letters, numbers, and underscores only.</div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="name" class="form-label fw-semibold small">Full Name <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light text-muted"><i class="bi bi-person"></i></span>
+                                        <input type="text" class="form-control" id="name" placeholder="e.g. Kamal Perera" required minlength="2">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="email" class="form-label fw-semibold small">Email Address <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light text-muted"><i class="bi bi-envelope"></i></span>
+                                        <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label for="password" class="form-label fw-semibold small">Password <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light text-muted"><i class="bi bi-lock"></i></span>
+                                        <input type="password" class="form-control" id="password" placeholder="At least 6 characters" required minlength="6">
+                                    </div>
+                                </div>
+
+                                <div class="mb-4">
+                                    <label for="confirm_password" class="form-label fw-semibold small">Confirm Password <span class="text-danger">*</span></label>
+                                    <div class="input-group">
+                                        <span class="input-group-text bg-light text-muted"><i class="bi bi-lock-fill"></i></span>
+                                        <input type="password" class="form-control" id="confirm_password" placeholder="Re-type your password" required minlength="6">
+                                    </div>
+                                </div>
+
+                                <div class="d-grid mb-3">
+                                    <button type="submit" class="btn btn-primary btn-lg rounded-pill fw-semibold shadow-sm">
+                                        <i class="bi bi-person-check me-2"></i> Register Account
+                                    </button>
+                                </div>
+
+                                <div class="text-center text-muted small">
+                                    Already have an account? 
+                                    <a href="login.html" class="text-primary fw-semibold text-decoration-none">Log in here</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Enhanced Modern Footer -->
+    <footer class="site-footer border-top">
+        <div class="container">
+            <div class="row g-4 justify-content-between">
+                <div class="col-lg-5 col-md-6 text-center text-md-start">
+                    <a href="index.html" class="d-inline-block mb-3 text-decoration-none">
+                        <img src="assets/images/logo-clean.png" alt="YumBook Logo" class="footer-brand-logo">
+                    </a>
+                    <p class="footer-brand-desc mb-0">
+                        Your trusted culinary companion for discovering, cooking, and sharing authentic global recipes. Explore delicious step-by-step dishes crafted for food lovers and home cooks everywhere.
+                    </p>
+                </div>
+                <div class="col-lg-3 col-md-4 text-center text-md-start ms-md-auto">
+                    <h6 class="footer-section-title">Quick Links</h6>
+                    <ul class="footer-nav-links list-unstyled mb-0">
+                        <li><a href="index.html" class="footer-link"><i class="bi bi-chevron-right small me-1"></i>Home</a></li>
+                        <li><a href="recipes.html" class="footer-link"><i class="bi bi-chevron-right small me-1"></i>Browse Recipes</a></li>
+                        <li><a href="contact.html" class="footer-link"><i class="bi bi-chevron-right small me-1"></i>Contact Us</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom text-center">
+                <p class="text-muted small mb-0">&copy; 2026 <strong>YumBook</strong>. All Rights Reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            if (window.getCurrentUser()) {
+                window.location.href = 'dashboard.html';
+                return;
+            }
+
+            const form = document.getElementById('registerForm');
+            const alertBox = document.getElementById('registerAlert');
+            const alertText = document.getElementById('registerAlertText');
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const username = document.getElementById('username').value.trim();
+                const name = document.getElementById('name').value.trim();
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const confirmPass = document.getElementById('confirm_password').value;
+
+                if (!/^[a-zA-Z0-9_]{3,30}$/.test(username)) {
+                    alertText.textContent = 'Username must be between 3 and 30 characters (letters, numbers, underscores).';
+                    alertBox.style.display = 'block';
+                    return;
+                }
+
+                if (name.length < 2) {
+                    alertText.textContent = 'Please enter your full name.';
+                    alertBox.style.display = 'block';
+                    return;
+                }
+
+                if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.toLowerCase())) {
+                    alertText.textContent = 'Please enter a valid email address.';
+                    alertBox.style.display = 'block';
+                    return;
+                }
+
+                if (password.length < 6) {
+                    alertText.textContent = 'Password must be at least 6 characters.';
+                    alertBox.style.display = 'block';
+                    return;
+                }
+
+                if (password !== confirmPass) {
+                    alertText.textContent = 'Passwords do not match.';
+                    alertBox.style.display = 'block';
+                    return;
+                }
+
+                // Check duplicates
+                const regUsers = JSON.parse(localStorage.getItem('yumbook_registered_users') || '[]');
+                if (regUsers.some(u => u.username.toLowerCase() === username.toLowerCase())) {
+                    alertText.textContent = 'Username is already taken. Please choose another.';
+                    alertBox.style.display = 'block';
+                    return;
+                }
+
+                if (regUsers.some(u => u.email.toLowerCase() === email.toLowerCase())) {
+                    alertText.textContent = 'An account with this email already exists.';
+                    alertBox.style.display = 'block';
+                    return;
+                }
+
+                // Save new user
+                const newUser = {
+                    id: Date.now(),
+                    username: username,
+                    name: name,
+                    email: email,
+                    password: password,
+                    created_at: new Date().toISOString()
+                };
+
+                regUsers.push(newUser);
+                localStorage.setItem('yumbook_registered_users', JSON.stringify(regUsers));
+
+                // Log in immediately and redirect to dashboard
+                window.setCurrentUser(newUser);
+                window.location.href = 'dashboard.html';
+            });
+        });
+    </script>
+</body>
+</html>
