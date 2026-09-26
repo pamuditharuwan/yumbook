@@ -1,5 +1,11 @@
 # YumBook – Digital Recipe Book 🍳📖
 
+**Course:** ICT 1209 – Web Technologies Mini-Project  
+**Institution:** Rajarata University of Sri Lanka (Faculty of Technology, Department of ICT)  
+**Academic Year:** 2024 / 2026  
+**Group Members:**
+- Pamuditha Ruwan (S. H. M. P. R. Sooryarathna)
+- Ruvishka Abeywickrama (M. M. R. T. Abeywickrama)
 ---
 
 ## 🌟 Project Overview
